@@ -4,12 +4,10 @@
 
 #include "registers.h"
 
-
-
-
-
 int main(int argc, char* argv[]) {
-    bool showContent;
+    bool showContent = true;
+    FILE *file = NULL;
+
     /**
      * read input file
      * user must enter 1 argument, the name of the file they wish to run
@@ -19,7 +17,8 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     } else {
         printf("Opening file...\n");
-        FILE *file = fopen(argv[1], "r");                                                   // file ptr
+        file = fopen(argv[1], "r");                                                         // file ptr
+
         // attempt to open file - if failed, end program
         if (file == NULL) {
             printf("Error: file %s was not found or couldn't be opened\n", argv[1]);
@@ -30,10 +29,11 @@ int main(int argc, char* argv[]) {
     }
 
     // parse file
-    char line[256];                                                                         // buffer
+    char line[256];                                                                         // line buffer
 
-
-
+    while (fgets(line, sizeof(line), file)) {
+        puts(line);
+    }
 
     return 0;
 }
