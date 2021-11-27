@@ -5,5 +5,5 @@
 #ifndef MAIN_REGISTERS_H
 #define MAIN_REGISTERS_H
 
-int getRegister(char regID[]);
+int registers_get(char regID[]);
 #endif //MAIN_REGISTERS_H

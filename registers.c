@@ -63,7 +63,7 @@ char *registers[] = {
  * @param regId register ID
  * @return register number
  */
-int getRegister (char regId[]){
+int registers_get (char regId[]){
     for (int i = 0; i < 32; i++) {
         if (strcmp(regId, registers[i]) == 0) {
             if (i == 1 || i == 26 || i == 27) {

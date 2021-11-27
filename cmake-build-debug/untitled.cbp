@@ -76,6 +76,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/micha/CLionProjects/mips/instructions.c">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="C:/Users/micha/CLionProjects/mips/instructions.h">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="C:/Users/micha/CLionProjects/mips/main.c">
 			<Option target="untitled"/>
 		</Unit>

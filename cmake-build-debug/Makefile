@@ -142,6 +142,33 @@ untitled/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+instructions.obj: instructions.c.obj
+
+.PHONY : instructions.obj
+
+# target to build an object file
+instructions.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/instructions.c.obj
+.PHONY : instructions.c.obj
+
+instructions.i: instructions.c.i
+
+.PHONY : instructions.i
+
+# target to preprocess a source file
+instructions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/instructions.c.i
+.PHONY : instructions.c.i
+
+instructions.s: instructions.c.s
+
+.PHONY : instructions.s
+
+# target to generate assembly for a file
+instructions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/instructions.c.s
+.PHONY : instructions.c.s
+
 main.obj: main.c.obj
 
 .PHONY : main.obj
@@ -205,6 +232,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... untitled
+	@echo ... instructions.obj
+	@echo ... instructions.i
+	@echo ... instructions.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

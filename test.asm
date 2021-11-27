@@ -1,3 +1,2 @@
-li      $t1, 4
-li      $t2, 5
-add     $t3, $t1, $t2
+add     $t2, $t1, $t1
+addi    $t2, $t1, 2

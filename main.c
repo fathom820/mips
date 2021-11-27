@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "registers.h"
+#include "instructions.h"
 
 int main(int argc, char* argv[]) {
     bool showContent = true;
@@ -25,6 +26,7 @@ int main(int argc, char* argv[]) {
             exit(EXIT_FAILURE);
         } else {
             printf("File %s successfully opened.\n", argv[1]);
+            // continue...
         }
     }
 
@@ -32,7 +34,7 @@ int main(int argc, char* argv[]) {
     char line[256];                                                                         // line buffer
 
     while (fgets(line, sizeof(line), file)) {
-        puts(line);
+        puts(instructions_decode(line));
     }
 
     return 0;
