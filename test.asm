@@ -1,2 +1,2 @@
 add     $t2, $t1, $t1
-addi    $t2, $t1, 2
+addi    $t2, $t3, 1

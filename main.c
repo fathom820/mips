@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
 
 #include "registers.h"
 #include "instructions.h"
 
 int main(int argc, char* argv[]) {
-    bool showContent = true;
     FILE *file = NULL;
 
     /**
@@ -34,7 +33,9 @@ int main(int argc, char* argv[]) {
     char line[256];                                                                         // line buffer
 
     while (fgets(line, sizeof(line), file)) {
-        puts(instructions_decode(line));
+        if (strcmp(line, ".data") != 0 && strcmp(line, ".text") != 0 && strcmp(line, ".word") != 0) {
+            puts(instructions_decode(line));
+        }
     }
 
     return 0;
