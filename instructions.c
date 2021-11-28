@@ -13,19 +13,13 @@
  * Array of most R-format instructions. Some obscure ones were left out, but
  * this should cover the most widely used MIPS operations.
  */
-char *r_format[18][2] = {
+char *r_format[13][2] = {
 //  instruction     funct           bin
 //  -----------------------------------------
         { "add",    "32" },      // 0x20
         { "addu",   "33" },      // 0x21
         { "div",    "26" },      // 0x1A
         { "divu",   "27" },      // 0x1B
-      //  { "jalr",   "09" },      // 0x09
-      //  { "jr",     "08" },      // 0x08
-        { "mfhi",   "16" },      // 0x10
-        { "mthi",   "17" },      // 0x11
-        { "mflo",   "18" },      // 0x12
-        { "mtlo",   "19" },      // 0x13
         { "mult",   "24" },      // 0x18
         { "multu",  "25" },      // 0x19
         { "nor",    "39" },      // 0x27
@@ -33,9 +27,6 @@ char *r_format[18][2] = {
         { "or",     "37" },      // 0x25
         { "slt",    "42" },      // 0x2A
         { "sltu",   "43" },      // 0x2B
-      //  { "sll",    "00" },      // 0x00
-      //  { "srl",    "02" },      // 0x02
-        { "sra",    "03" },      // 0x03
         { "sub",    "34" },      // 0x22
         { "subu",   "35" }       // 0x23
 };
@@ -44,20 +35,19 @@ char *r_format[18][2] = {
  * Array of most I-format instructions. Some obscure ones were left out, but
  * this should cover the most widely used MIPS operations.
  */
-char *i_format[11][2] = {
+char *i_format[6][2] = {
 //  instruction     opcode           bin
 //  -----------------------------------------
         { "addi",   "08" },      // 0x08
         { "addiu",  "09" },      // 0x09
         { "andi",   "12" },      // 0x0C
-        { "beq",    "04" },      // 0x04
-        { "blez",   "06" },      // 0x06
-        { "bne",    "05" },      // 0x05
-        { "bgtz",   "07" },      // 0x07
+        // { "beq",    "04" },      // 0x04
+        // { "blez",   "06" },      // 0x06
+        // { "bne",    "05" },      // 0x05
+        // { "bgtz",   "07" },      // 0x07
         { "ori",    "13" },      // 0x0D
         { "slti",   "12" },      // 0x0A
         { "sltiu",  "11" },      // 0x0B
-        { "sw",     "43" }       // 0x2B
 };
 
 const char * replace_char(char* str, char find, char replace){
@@ -142,13 +132,14 @@ const char* instructions_decode (char instr[]) {
     replace_char(instr, ',', ' ');
     replace_char(instr, '\n', ' ');
     char *p = strtok(instr, " ");
-    char *array[4];
+    char *array[4] = { NULL, NULL, NULL, NULL };
 
     int i = 0;
     while (p != NULL) {
         array[i++] = p;
         p = strtok(NULL, " ");
     }
+
 
     char * instruction = array[0];
     format = get_format((const char **) instruction);
