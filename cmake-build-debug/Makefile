@@ -196,6 +196,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/main.c.s
 .PHONY : main.c.s
 
+memory.obj: memory.c.obj
+
+.PHONY : memory.obj
+
+# target to build an object file
+memory.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/memory.c.obj
+.PHONY : memory.c.obj
+
+memory.i: memory.c.i
+
+.PHONY : memory.i
+
+# target to preprocess a source file
+memory.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/memory.c.i
+.PHONY : memory.c.i
+
+memory.s: memory.c.s
+
+.PHONY : memory.s
+
+# target to generate assembly for a file
+memory.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/memory.c.s
+.PHONY : memory.c.s
+
 registers.obj: registers.c.obj
 
 .PHONY : registers.obj
@@ -238,6 +265,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... memory.obj
+	@echo ... memory.i
+	@echo ... memory.s
 	@echo ... registers.obj
 	@echo ... registers.i
 	@echo ... registers.s

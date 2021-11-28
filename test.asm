@@ -1,2 +1,3 @@
-add     $t2, $t1, $t1
-addi    $t2, $t3, 1
+.text
+addiu   $t0, $t1, 303
+subu    $t0, $zero, $t4

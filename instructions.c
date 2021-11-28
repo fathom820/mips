@@ -7,20 +7,21 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 /**
  * Array of most R-format instructions. Some obscure ones were left out, but
  * this should cover the most widely used MIPS operations.
  */
-char *r_format[20][2] = {
+char *r_format[18][2] = {
 //  instruction     funct           bin
 //  -----------------------------------------
         { "add",    "32" },      // 0x20
         { "addu",   "33" },      // 0x21
         { "div",    "26" },      // 0x1A
         { "divu",   "27" },      // 0x1B
-        { "jalr",   "09" },      // 0x09
-        { "jr",     "08" },      // 0x08
+      //  { "jalr",   "09" },      // 0x09
+      //  { "jr",     "08" },      // 0x08
         { "mfhi",   "16" },      // 0x10
         { "mthi",   "17" },      // 0x11
         { "mflo",   "18" },      // 0x12
@@ -59,7 +60,7 @@ char *i_format[11][2] = {
         { "sw",     "43" }       // 0x2B
 };
 
-char* replace_char(char* str, char find, char replace){
+const char * replace_char(char* str, char find, char replace){
     char *current_pos = strchr(str,find);
     while (current_pos) {
         *current_pos = replace;
@@ -104,6 +105,19 @@ char get_format (const char **instr) {
     return '-'; // invalid instruction
 }
 
+long dec_to_bin (int n) {
+    long long bin = 0;
+    long long rem, i = 1;
+
+    while (n!=0) {
+        rem = n % 2;
+        n /= 2;
+        bin += rem * i;
+        i *= 10;
+    }
+
+    return bin;
+}
 
 // public
 
@@ -136,37 +150,26 @@ const char* instructions_decode (char instr[]) {
         p = strtok(NULL, " ");
     }
 
-    for (i = 0; i < (sizeof array / sizeof *array); i++) {
-        // todo debug only
-        //printf("%s\n", array[i]);
-    }
-
     char * instruction = array[0];
     format = get_format((const char **) instruction);
 
     //  BIT SEGMENTS USED BY BOTH FORMATS
-    const char * opcode   = "000000";
-    int rs;
-    int rt;
+    const char * opcode;
 
 
 // FORMAT-BASED OPERATIONS
     if (format == 'R') {
 
-        int rd  = registers_get((char **) array[1]);
-        rs      = registers_get((char **) array[2]);
-        rt      = registers_get((char **) array[3]);
-
-        const char *shamt   = "00000";
-        const char *funct   = get_funct((const char **) instr);
+        const char * shamt   = "00000";
+        const char * funct   = get_funct((const char **) instr);
 
         char *str = (char*) malloc(64 * sizeof(char));
-        sprintf(str, "%c-Format: %s %d %d %d",
+        sprintf(str, "%c-Format: %ld %ld %ld %ld",
                 format,
-                funct,
-                registers_get((char **) array[1]),      // rd
-                registers_get((char **) array[2]),      // rs
-                registers_get((char **) array[3])       // rt
+                dec_to_bin((atoi(funct))),
+                dec_to_bin(registers_get((char **) array[1])),      // rd
+                dec_to_bin(registers_get((char **) array[2])),      // rs
+                dec_to_bin(registers_get((char **) array[3]))       // rt
                 );
         return str;
 
@@ -175,12 +178,13 @@ const char* instructions_decode (char instr[]) {
         opcode = get_opcode((const char **) instr);
 
         char *str = (char*) malloc(64 * sizeof(char));
-        sprintf(str, "%c-Format: %s %d %d %s",
+        sprintf(str, "%c-Format: %ld %ld %ld %ld",
                 format,
-                opcode,
-                registers_get((char **) array[1]),      // rt
-                registers_get((char **) array[2]),      // rd
-                array[3]);                                    // immediate value
+                dec_to_bin(strtol(opcode, 0, 10)),
+                dec_to_bin(registers_get((char **) array[1])),      // rt
+                dec_to_bin(registers_get((char **) array[2])),      // rd
+                dec_to_bin(strtol(array[3], 0, 10))  // immediate value
+                );
         return str;
     }
 
