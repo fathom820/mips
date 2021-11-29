@@ -41,10 +41,6 @@ char *i_format[6][2] = {
         { "addi",   "08" },      // 0x08
         { "addiu",  "09" },      // 0x09
         { "andi",   "12" },      // 0x0C
-        // { "beq",    "04" },      // 0x04
-        // { "blez",   "06" },      // 0x06
-        // { "bne",    "05" },      // 0x05
-        // { "bgtz",   "07" },      // 0x07
         { "ori",    "13" },      // 0x0D
         { "slti",   "12" },      // 0x0A
         { "sltiu",  "11" },      // 0x0B
@@ -138,6 +134,12 @@ const char* instructions_decode (char instr[]) {
     while (p != NULL) {
         array[i++] = p;
         p = strtok(NULL, " ");
+    }
+
+    for (int i = 0; i < (sizeof array / sizeof *array); i++) {
+        if (array[i] == NULL) {
+            array[i] = "NULL";
+        }
     }
 
 

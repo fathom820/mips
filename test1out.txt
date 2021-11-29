@@ -1,0 +1,7 @@
+Opening file...
+File test.asm successfully opened.
+R-Format: 100000 1000 1001 10000
+I-Format: 1000 1000 1000 11001
+R-Format: 100111 10 10010 -1
+R-Format: 101010 10010 10 10000
+I-Format: 1100 1001 1001 101
