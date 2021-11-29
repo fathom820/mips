@@ -1,6 +1,7 @@
-//
-// Created by micha on 11/24/2021.
-//
+/**
+ * Michael Frank
+ * CMPE 220-2
+ */
 
 #ifndef MAIN_REGISTERS_H
 #define MAIN_REGISTERS_H

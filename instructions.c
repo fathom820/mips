@@ -1,6 +1,7 @@
-//
-// Created by micha on 11/26/2021.
-//
+/**
+ * Michael Frank
+ * CMPE 220-2
+ */
 
 #include "instructions.h"
 #include "registers.h"

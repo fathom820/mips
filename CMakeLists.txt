@@ -3,4 +3,4 @@ project(untitled C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(untitled main.c registers.c registers.h instructions.c instructions.h memory.h)
+add_executable(untitled main.c registers.c registers.h instructions.c instructions.h)

@@ -1,3 +1,8 @@
+/**
+ * Michael Frank
+ * CMPE 220-2
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
