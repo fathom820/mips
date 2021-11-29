@@ -47,6 +47,13 @@ char *i_format[6][2] = {
         { "sltiu",  "11" },      // 0x0B
 };
 
+/**
+ * Replaces all instances of character with another
+ * @param str string we're working with
+ * @param find char to find
+ * @param replace char to replace with
+ * @return edited char
+ */
 const char * replace_char(char* str, char find, char replace){
     char *current_pos = strchr(str,find);
     while (current_pos) {
@@ -56,6 +63,11 @@ const char * replace_char(char* str, char find, char replace){
     return str;
 }
 
+/**
+ * Get opcode for an instruction
+ * @param instr
+ * @return
+ */
 const char * get_opcode(const char * instr[]) {
     for (int i = 0; i < (sizeof i_format / sizeof *i_format); i++) {
         if (strcmp((const char *) instr, i_format[i][0]) == 0) {
@@ -65,6 +77,11 @@ const char * get_opcode(const char * instr[]) {
     return NULL;
 }
 
+/**
+ * Get funct for an instruction
+ * @param instr
+ * @return
+ */
 const char * get_funct(const char * instr[]) {
     for (int i = 0; i < (sizeof r_format / sizeof *r_format); i++) {
         if (strcmp((const char *) instr, (const char *) r_format[i][0]) == 0) {
@@ -74,6 +91,13 @@ const char * get_funct(const char * instr[]) {
     return NULL;
 }
 
+/**
+ * Determines instruction format. This is done by
+ * checking which array (R format or I format) it's found in.
+ * If found in neither, returns invalid message.
+ * @param instr
+ * @return
+ */
 char get_format (const char **instr) {
     // test for r-format
     for (int i = 0; i < (sizeof r_format / sizeof *r_format); i++) {
@@ -92,6 +116,12 @@ char get_format (const char **instr) {
     return '-'; // invalid instruction
 }
 
+/**
+ * Converts decimal number to binary.
+ * Watch out for overflow - can't go much above 300
+ * @param n
+ * @return
+ */
 long dec_to_bin (int n) {
     long long bin = 0;
     long long rem, i = 1;
@@ -126,9 +156,9 @@ const char* instructions_decode (char instr[]) {
 
 // 1. DETERMINE INSTRUCTION FORMAT
 
-    replace_char(instr, ',', ' ');
-    replace_char(instr, '\n', ' ');
-    char *p = strtok(instr, " ");
+    replace_char(instr, ',', ' ');          // get rid of commas
+    replace_char(instr, '\n', ' ');         // get rid of newline
+    char *p = strtok(instr, " ");           // split string by spaces
     char *array[4] = { NULL, NULL, NULL, NULL };
 
     int i = 0;
@@ -139,16 +169,12 @@ const char* instructions_decode (char instr[]) {
 
     for (int i = 0; i < (sizeof array / sizeof *array); i++) {
         if (array[i] == NULL) {
-            array[i] = "NULL";
+            array[i] = "NULL";              // make array full to avoid segfault
         }
     }
 
-
     char * instruction = array[0];
     format = get_format((const char **) instruction);
-
-    //  BIT SEGMENTS USED BY BOTH FORMATS
-    const char * opcode;
 
 
 // FORMAT-BASED OPERATIONS
@@ -169,9 +195,9 @@ const char* instructions_decode (char instr[]) {
 
     } else if (format == 'I') {
 
-        opcode = get_opcode((const char **) instr);
+        const char * opcode = get_opcode((const char **) instr);    // get opcode
 
-        char *str = (char*) malloc(64 * sizeof(char));
+        char *str = (char*) malloc(64 * sizeof(char));              // allocate mem
         sprintf(str, "%c-Format: %ld %ld %ld %ld",
                 format,
                 dec_to_bin(strtol(opcode, 0, 10)),
